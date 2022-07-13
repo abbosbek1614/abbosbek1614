@@ -1,0 +1,244 @@
+from telegram import  ReplyKeyboardMarkup, InputMediaDocument
+from telegram.ext import Updater, CommandHandler, ConversationHandler, MessageHandler, Filters 
+
+buttons = ReplyKeyboardMarkup([["O'zbek"], ["Русский"]], resize_keyboard=True)
+#O'zbekchasi
+menus = ReplyKeyboardMarkup([["Kitoblar📚","Grammatikalar📖"], ["So'zlar📑","Video darslik🎞"],["Online Topik📝", "Darslik kitoblar📓","🔙Orqaga"]], resize_keyboard=True)
+#Ruschasi
+menus2 = ReplyKeyboardMarkup([["Книги📚","Грамматика📖"], ["Слова📑","Видео уроки🎞"],["Онлайн TOPIK📝","🔙Назад"]], resize_keyboard=True)
+#Kitob ichidagi
+menus3 = ReplyKeyboardMarkup([["연세", "한국어"], [ "다른 책","🔙Ortga"]], resize_keyboard=True )
+#So'zlar ichidagi
+menus4 = ReplyKeyboardMarkup([["초급 Boshlang'ich", "중급 O'rta"], ["고급 Yuqori", "🔙Ortga"]], resize_keyboard=True )
+#Darslik kitoblar
+menus5 =  ReplyKeyboardMarkup([["1", "2"], ["3", "🔙Ortga"]], resize_keyboard=True )
+
+
+
+def start(update, context):
+    update.message.reply_html(
+        '<b>Assalomu aleykum. {} </b>\n \n Kerakli tilni tanlang. \n Выберите язык.' .format(update.message.from_user.first_name), reply_markup=buttons)
+    return 1
+    
+
+def Uzbek(update, context):
+    update.message.reply_html(
+        "Koreys tiliga oid Kitoblar, Grammatikalar, So'zlar, Videolar darsliklar, Online Topiklar shu botda.", reply_markup=menus)
+
+def Русский(update, context):
+    update.message.reply_html(
+        "По корейскому языку Книги, Грамматика, Слова, Видео уроки, Онлайн Topik в этом боте",reply_markup=menus2)
+
+# Uzbek
+def Kitoblar(update, context): 
+    update.message.reply_html(
+    "Bo'limni tanlang",reply_markup=menus3)
+# Kitoblar to'plami
+def Yonse(update, context):
+    file="C:/python_dars/Yonsei 1.pdf"
+    data = []
+    books = ['Yonsei 1.pdf', 'Yonsei 2.pdf', 'Yonsei 3.pdf', 'Yonsei 4.pdf', 'Yonsei 5.pdf', 'Yonsei Audio 1.zip','Yonsei Audio 2.zip','Yonsei Audio 3.zip','Yonsei Audio 4.zip','Yonsei Audio 5.zip']
+    for book in books:
+        context.bot.send_document(chat_id=update.message.chat_id, document=open('C:/python_dars/%s' % book, 'rb'))
+        #data.append(InputMediaDocument(open('C:/python_dars/%s' % book, 'rb'), caption = book))
+    #context.bot.send_media_group(chat_id = update.message.chat_id, media = data)
+ 
+def Hangugo(update, context):
+    file="C:/python_dars/Kitob 1.pdf"
+    data = []
+    books = ['Kitob 1.pdf','Kitob 2.pdf', 'Kitob 3.pdf', 'Kitob 4.pdf','Kitob 5.pdf','Kitob 6.pdf','Kitob 7.pdf','Kitob 8.pdf']
+    for book in books:
+        context.bot.send_document(chat_id=update.message.chat_id, document=open('C:/python_dars/%s' % book, 'rb'))
+        #data.append(InputMediaDocument(open('C:/python_dars/%s' % book, 'rb'), caption = book))
+    #context.bot.send_media_group(chat_id = update.message.chat_id, media = data)
+
+
+def Tarinchek(update, context):
+    file="C:/python_dars/Ertak kitob 1.pdf"
+    data = []
+    books = ['Ertak kitob 1.pdf', 'Ertak kitob 2.pdf', 'Ertak kitob 3.pdf', 'Ertak kitob 4.pdf','Ertak kitob 5.pdf','Ertak kitob 6.pdf','Ertak kitob 7.pdf','Alisa.pdf','Kichkina shaxzoda.pdf']
+    for book in books:
+        context.bot.send_document(chat_id=update.message.chat_id, document=open('C:/python_dars/%s' % book, 'rb'))
+        #data.append(InputMediaDocument(open('C:/python_dars/%s' % book, 'rb'), caption = book))
+    #context.bot.send_media_group(chat_id = update.message.chat_id, media = data)
+
+def Ortga(update, context):
+    update.message.reply_html(
+        "Bo'limni tanlang",reply_markup=menus)
+
+
+
+
+
+# Grammatikalar
+def Grammatikalar(update, context):
+    file="C:/python_dars/Barcha grammatikalar.pdf"
+    context.bot.send_document(chat_id=update.message.chat_id, document=open(file, 'rb'))
+
+
+
+# So'zlar
+def Sozlar(update, context):
+    update.message.reply_html(
+        "Bo'limni tanlang", reply_markup=menus4)
+
+def 초급 (update, context):
+    file="C:/python_dars/1.pdf"
+    data = []
+    books = ['1.pdf','1-1.pdf','1-2.pdf','1-3.pdf']
+    for book in books:
+        context.bot.send_document(chat_id=update.message.chat_id, document=open('C:/python_dars/%s' % book, 'rb'))
+        #data.append(InputMediaDocument(open('C:/python_dars/%s' % book, 'rb'), caption = book))
+    #context.bot.send_media_group(chat_id = update.message.chat_id, media = data)
+
+
+def 중급 (update, context):
+    file="C:/python_dars/2.pdf"
+    data = []
+    books = ['2.pdf','2-2.pdf','2-3.pdf','2-4.pdf','2-5.pdf']
+    for book in books:
+        context.bot.send_document(chat_id=update.message.chat_id, document=open('C:/python_dars/%s' % book, 'rb'))
+        #data.append(InputMediaDocument(open('C:/python_dars/%s' % book, 'rb'), caption = book))
+    #context.bot.send_media_group(chat_id = update.message.chat_id, media = data)
+
+
+
+def 고급 (update, context):
+    file="C:/python_dars/3.pdf"
+    data = []
+    books = ["3.pdf", "3-1.pdf",'2000 Korean Words.pdf']
+    for book in books:
+        context.bot.send_document(chat_id=update.message.chat_id, document=open('C:/python_dars/%s' % book, 'rb'))
+
+        #data.append(InputMediaDocument(open('C:/python_dars/%s' % book, 'rb'), caption = book))
+    #context.bot.send_media_group(chat_id = update.message.chat_id, media = data)
+
+    
+def Ortga (update, context):
+    update.message.reply_html(
+        "Bo'limni tanlang",reply_markup=menus)
+
+
+# Videolar
+def Videolar(update, context):
+    update.message.reply_html(
+        "Koreys tilini mukammal o'rganing.👇      https://www.youtube.com/watch?v=zFcTtqrsflc&list=PLahs8zJoTSMhi6TgVv-xGL5QDv7YU-Bh0",reply_markup=menus)
+
+
+# Topiklar
+def Topik(update, context):
+    update.message.reply_html(
+        "Ushbu link orqali siz online TOPIK testlarini yechasiz.👇       https://www.topikguide.com/complete-topik-practice-test-online/", reply_markup=menus)
+
+
+#Darslik kitoblar
+def Kitob(update, context):
+     update.message.reply_html(
+        "Darslik uchun kitoblar", reply_markup=menus5)
+def va(update, context):
+    file="C:/python_dars/Oson 1.pdf"
+    data = []
+    books = ["Oson 1.pdf", "Oson 2.pdf"]
+    for book in books:
+        context.bot.send_document(chat_id=update.message.chat_id, document=open('C:/python_dars/%s' % book, 'rb'))
+        #data.append(InputMediaDocument(open('C:/python_dars/%s' % book, 'rb'), caption = book))
+    #context.bot.send_media_group(chat_id = update.message.chat_id, media = data)
+
+def na(update, context):
+    file="C:/python_dars/Boshlang'ich 1.pdf"
+    data = []
+    books = ["Boshlang'ich 1.pdf.pdf", "Boshlang'ich 2.pdf","korean book.pdf"]
+    for book in books:
+        context.bot.send_document(chat_id=update.message.chat_id, document=open('C:/python_dars/%s' % book, 'rb'))
+        #data.append(InputMediaDocument(open('C:/python_dars/%s' % book, 'rb'), caption = book))
+    #context.bot.send_media_group(chat_id = update.message.chat_id, media = data)
+
+
+def da(update, context):
+    file="C:/python_dars/Hangugo 1.pdf"
+    data = []
+    books = ["Hangugo 1.pdf", "Hangugo 2.pdf"]
+    for book in books:
+        context.bot.send_document(chat_id=update.message.chat_id, document=open('C:/python_dars/%s' % book, 'rb'))
+        #data.append(InputMediaDocument(open('C:/python_dars/%s' % book, 'rb'), caption = book))
+    #context.bot.send_media_group(chat_id = update.message.chat_id, media = data)
+
+
+
+def Ortga(update, context):
+    update.message.reply_html(
+        "Bo'limni tanlang", reply_markup=menus)
+
+
+# Русский
+def Книги(update, context):
+    update.message.reply_html(
+        "", reply_markup=menus2)
+
+def Грамматика(update, context):
+    update.message.reply_html(
+        "dvd",reply_markup=menus2)
+
+def Слова (update, context):
+    file="C:/python_dars/Слова 1.pdf"
+    data = []
+    books = ["Слова 1.pdf", "Слова 2.pdf","Слова 4.pdf","Слова 3.pdf"]
+    for book in books:
+        context.bot.send_document(chat_id=update.message.chat_id, document=open('C:/python_dars/%s' % book, 'rb'))
+        #data.append(InputMediaDocument(open('C:/python_dars/%s' % book, 'rb'), caption = book))
+    #context.bot.send_media_group(chat_id = update.message.chat_id, media = data)
+
+def Видео (update, context):
+    update.message.reply_html(
+        "Выучить корейский в совершенстве.👇                https://www.youtube.com/watch?v=zFcTtqrsflc&list=PLahs8zJoTSMhi6TgVv-xGL5QDv7YU-Bh0",reply_markup=menus2)
+
+def TOPIK(update, context):
+    update.message.reply_html(
+        "По этой ссылке вы будете решать онлайн ТOPIK тесты.👇          https://www.topikguide.com/complete-topik-practice-test-online/", reply_markup=menus2)
+
+
+
+
+
+
+updater = Updater('5382265371:AAHHg-2-GKzS0UMujKme3_6AYfEAVOmzjp0', use_context=True)
+conv_handler = ConversationHandler(
+    entry_points = [CommandHandler('start', start)],
+    states={
+        1: [MessageHandler(Filters.regex("^(O'zbek)$"), Uzbek),
+            MessageHandler(Filters.regex("^(Русский)$"), Русский),
+            
+            MessageHandler(Filters.regex("^(Kitoblar📚)$"),Kitoblar),
+            MessageHandler(Filters.regex("^(Grammatikalar📖)$"), Grammatikalar),
+            MessageHandler(Filters.regex("^(So'zlar📑)$"),Sozlar),
+            MessageHandler(Filters.regex("^(Video darslik🎞)$"), Videolar),
+            MessageHandler(Filters.regex("^(Online Topik📝)$"),Topik),
+            MessageHandler(Filters.regex("^(Darslik kitoblar📓)$"),Kitob),
+            MessageHandler(Filters.regex("^(🔙Ortga)$"), Ortga),
+            MessageHandler(Filters.regex("^(Книги📚)$"), Книги),
+            MessageHandler(Filters.regex("^(Грамматика📖)$"), Грамматика),
+            MessageHandler(Filters.regex("^(Слова📑)$"),Слова),
+            MessageHandler(Filters.regex("^(Видео уроки🎞)$"), Видео),
+            MessageHandler(Filters.regex("^(Онлайн TOPIK)$"),TOPIK),
+            MessageHandler(Filters.regex("^(🔙Ortga)$"),Ortga),
+            MessageHandler(Filters.regex("^(연세)$"),Yonse),
+            MessageHandler(Filters.regex("^(한국어)$"),Hangugo),
+            MessageHandler(Filters.regex("^(다른 책)$"),Tarinchek),
+            MessageHandler(Filters.regex("^(초급 Boshlang'ich)$"), 초급),
+            MessageHandler(Filters.regex("^(중급 O'rta)$"), 중급),
+            MessageHandler(Filters.regex("^(고급 Yuqori)$"), 고급),
+            MessageHandler(Filters.regex("^(1)$"),va),
+            MessageHandler(Filters.regex("^(2)$"),na),
+            MessageHandler(Filters.regex("^(3)$"),da),
+            MessageHandler(Filters.regex("^(🔙Ortga)$"),Ortga),
+            ]
+       
+        
+       
+    },
+    fallbacks=[MessageHandler(Filters.text, start)]
+)
+
+updater.dispatcher.add_handler(conv_handler)
+updater.start_polling()
+updater.idle()
