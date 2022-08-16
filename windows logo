@@ -6,7 +6,7 @@ speed(1)
 bgcolor("black")
 penup()
 #change the pen position
-goto(-50,60)
+goto(-50,50)
 pendown()
 color('#00adef')
 begin_fill()
